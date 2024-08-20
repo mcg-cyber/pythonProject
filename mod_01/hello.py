@@ -1,5 +1,5 @@
 __author__ = '<Cahit Gunes>'
-__email__ = '<cahit.gunes@metrolpolia.fi>'
+__email__ = '<cahit.gunes@metropolia.fi>'
 
 def greet(name):
     return f'Hei, {name}!'
