@@ -1,5 +1,6 @@
 __author__ = '<Cahit Gunes>'
 __email__ = '<cahit.gunes@metropolia.fi>'
+# Script asks user's name then greets the user
 
 def greet(name):
     return f'Hei, {name}!'
