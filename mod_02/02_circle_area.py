@@ -1,5 +1,3 @@
-__author__ = '<Cahit Gunes>'
-__email__ = '<cahit.gunes@metropolia.fi>'
 # Script calculates the area of circle with given size
 from math import pi
 

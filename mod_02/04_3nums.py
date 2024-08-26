@@ -1,6 +1,3 @@
-__author__ = '<Cahit Gunes>'
-__email__ = '<cahit.gunes@metropolia.fi>'
-
 # Script calculates the sum and (multiplies) average from the given three number
 
 def three_number_calculation():

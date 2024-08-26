@@ -1,5 +1,3 @@
-__author__ = '<Cahit Gunes>'
-__email__ = '<cahit.gunes@metropolia.fi>'
 # Script calculates the area of rectangle with given sizes
 
 def rectangle(b, h):
