@@ -1,6 +1,28 @@
 # FIX: fetchs from flight_game, airport table
 # SELECT airport.name, airport.type FROM airport WHERE ident = "EFHK" ORDER BY airport.type;
 # With "FI", returns empty set with script and mariadb command above
+# FIX is done with this SQL code below sorts better now
+
+#SELECT airport.type, count(*)
+#       FROM airport
+#       WHERE iso_country = %s
+#       GROUP BY airport.type
+#       ORDER BY count(*) DESC
+
+
+# SQL command below works also
+
+#cursor = connection.cursor()
+    #   cursor.execute(
+    #       """
+    #       SELECT airport.name, airport.type
+    #       FROM airport
+    #       WHERE iso_country = %s
+    #       ORDER BY airport.type
+    #   """,
+    #       (area_code,),
+    #   )
+
 
 import mysql.connector
 from mysql.connector import Error
@@ -25,12 +47,22 @@ def create_connection():
 def fetch_airports_by_area_code(connection, area_code):
     """Fetch airports located in the specified area code ordered by airport type"""
     cursor = connection.cursor()
+    #   cursor.execute(
+    #       """
+    #       SELECT airport.name, airport.type
+    #       FROM airport
+    #       WHERE iso_country = %s
+    #       ORDER BY airport.type
+    #   """,
+    #       (area_code,),
+    #   )
     cursor.execute(
         """
-        SELECT airport.name, airport.type 
-        FROM airport 
-        WHERE ident = %s 
-        ORDER BY airport.type
+       SELECT airport.type, count(*)
+       FROM airport
+       WHERE iso_country = %s
+       GROUP BY airport.type
+       ORDER BY count(*) DESC
     """,
         (area_code,),
     )
