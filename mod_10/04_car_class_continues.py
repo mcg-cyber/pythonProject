@@ -26,9 +26,6 @@ class Race:
         self.distance = distance
         self.cars = cars
 
-    def add_car(self, car):
-        self.cars.append(car)
-
     def hour_passes(self):
         for car in self.cars:
             acceleration = random.randint(-10, 15)  # Random acceleration between -10 and +15 km/h
@@ -41,30 +38,17 @@ class Race:
         print("-" * 80)
         for car in self.cars:
             print(f"{car.registration_number:<20} | {car.maximum_speed:<20} | {car.current_speed:<20} | {car.travelled_distance:<30}")
+        print()  # Empty line for better readability
 
     def race_finished(self):
         return any(car.travelled_distance >= self.distance for car in self.cars)
 
-# Create a list of 10 car objects with random maximum speeds between 100 km/h and 200 km/h and registration numbers as "ABC-1", "ABC-2", and so on
-car_list = []
-for i in range(1, 11):
-    max_speed = random.randint(100, 200)
-    reg_number = f"ABC-{i}"
-    car = Car(reg_number, max_speed)
-    car_list.append(car)
-
-# Create a race instance with a name, distance, and the list of cars
+# Example usage
+car_list = [Car(f"ABC-{i}", random.randint(100, 200)) for i in range(1, 11)]
 race = Race("Grand Prix", 10000, car_list)
 
-# Simulate the race until one of the cars has advanced the entire distance
-hour = 0
 while not race.race_finished():
-    hour += 1
-    print(f"Hour {hour} of the race:")
     race.hour_passes()
     race.print_status()
-    print()  # Empty line for better readability between hours
 
-# Print the final results
-print("\nFinal Race Results:")
-race.print_status()
+print("The race is finished!")
