@@ -1,5 +1,5 @@
 import random
-from mod_10_04_car_class_continues import Car, Race
+from car_class_continues import Car, Race
 
 def main():
     # Create a list of 10 car objects with random maximum speeds between 100 km/h and 200 km/h
