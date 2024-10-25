@@ -21,24 +21,29 @@ class Car:
         self.travelled_distance += distance
 
 class Race:
-    def __init__(self):
-        self.cars = []
+    def __init__(self, name, distance, cars):
+        self.name = name
+        self.distance = distance
+        self.cars = cars
 
     def add_car(self, car):
         self.cars.append(car)
 
-    def simulate_race(self):
-        target_distance = 10000
-        hour = 0
-        while all(car.travelled_distance < target_distance for car in self.cars):
-            hour += 1
-            print(f"Hour {hour} of the race:")
-            for car in self.cars:
-                acceleration = random.randint(-10, 15)  # Random acceleration between -10 and +15 km/h
-                car.accelerate(acceleration)
-                car.drive(1)  # Drive for 1 hour
-                print(f"Car {car.registration_number} - Current Speed: {car.current_speed} km/h, Travelled Distance: {car.travelled_distance} km")
-            print()  # Empty line for better readability between hours
+    def hour_passes(self):
+        for car in self.cars:
+            acceleration = random.randint(-10, 15)  # Random acceleration between -10 and +15 km/h
+            car.accelerate(acceleration)
+            car.drive(1)  # Drive for 1 hour
+
+    def print_status(self):
+        print("\nCurrent Race Status:")
+        print("Registration Number | Maximum Speed (km/h) | Current Speed (km/h) | Travelled Distance (km)")
+        print("-" * 80)
+        for car in self.cars:
+            print(f"{car.registration_number:<20} | {car.maximum_speed:<20} | {car.current_speed:<20} | {car.travelled_distance:<30}")
+
+    def race_finished(self):
+        return any(car.travelled_distance >= self.distance for car in self.cars)
 
         # Print the properties of each car in a clear table format
         print("\nRace Results:")
@@ -55,12 +60,18 @@ for i in range(1, 11):
     car = Car(reg_number, max_speed)
     car_list.append(car)
 
-# Create a race instance
-race = Race()
+# Create a race instance with a name, distance, and the list of cars
+race = Race("Grand Prix", 10000, car_list)
 
-# Add cars to the race
-for car in car_list:
-    race.add_car(car)
+# Simulate the race until one of the cars has advanced the entire distance
+hour = 0
+while not race.race_finished():
+    hour += 1
+    print(f"Hour {hour} of the race:")
+    race.hour_passes()
+    race.print_status()
+    print()  # Empty line for better readability between hours
 
-# Simulate the race until one of the cars has advanced at least 10,000 kilometers
-race.simulate_race()
+# Print the final results
+print("\nFinal Race Results:")
+race.print_status()
